@@ -23,7 +23,7 @@ inputs:
     required: true
     description: "Hostinger SSH password"
   deployPath:
-    required: true
+    required: false
     description: "Path to deploy the site in Hostinger"
 
 runs:
@@ -37,5 +37,5 @@ runs:
         username: ${{ inputs.username }}
         password: ${{ inputs.password }}
         source: "${{ inputs.source-path }}/*"
-        target: "domains/${{ inputs.domain }}/{{inputs.deployPath}}/"
+        target: "${{ inputs.deployPath && inputs.deployPath != '' ? domains/${{ inputs.domain }}/{{inputs.deployPath}}/ : domains/${{ inputs.domain }}/public_html/}}"
         strip_components: 1
